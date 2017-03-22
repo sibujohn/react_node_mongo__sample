@@ -8,18 +8,20 @@ class AddNewStore {
 		this.name = '';
 		this.scientificName = '';
 		this.speciesName = '';
-		this.category = 'animal';
+		this.category = '';
 		this.lifespan = 0;
 		this.weight = 0;
 		this.height = 0;
   	}
 
-  	onGetAddNewSuccess(data) {
-		
+  	onGetAddNewSuccess(message) {
+		this.addSuccesState = 'has-success';
+		this.addSuccessMessage = message;
   	}
 
-  	onGetAddNewFail(error) {
-		
+  	onGetAddNewFail(message) {
+		this.addSuccesState = 'has-error';
+		this.addSuccessMessage = message;
   	}
 
   	onUpdateName(event) {

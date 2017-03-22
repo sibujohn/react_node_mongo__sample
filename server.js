@@ -62,6 +62,9 @@ app.use('/auth', loginModule);
 var dashboardModule = require('./server/dashboard/dashboardModule');
 app.use('/dashboard', dashboardModule);
 
+var dataModule = require('./server/data/dataModule');
+app.use('/data', dataModule);
+
 app.use(function(req, res) {
   Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
     if (err) {

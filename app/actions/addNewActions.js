@@ -22,13 +22,22 @@ class AddNewActions {
 		);
 	}
 
-	addNewPost() {
-		$.ajax({ url: '/api/stats' })
-		.done((data) => {
-			this.actions.getAddNewSuccess(data);
+	addNewPost(data) {
+		$.ajax({
+			type: 'POST',
+			url: '/data/addNewItem',
+			data: data
+		})
+		.done((res) => {
+			if(res.status === 1){
+				this.actions.getAddNewSuccess(res.message);
+			}
+			else{
+				this.actions.getAddNewFail(res.message);
+			}
 		})
 		.fail((error) => {
-			this.actions.getAddNewFail(error);
+			this.actions.getAddNewFail(error.statusText);
 		});
 	}
 }

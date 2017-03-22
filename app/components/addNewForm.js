@@ -21,11 +21,13 @@ class AddNew extends React.Component {
 
 	handleAddNew(event) {
 		event.preventDefault();
+		var successFlag = true;
 
 		var name = this.state.name.trim();
 		if (!name) {
 			AddNewActions.invalidName();
 			this.refs.nameTextField.focus();
+			successFlag = false;
 			return;
 		}
 
@@ -33,6 +35,7 @@ class AddNew extends React.Component {
 		if (!scientificName) {
 			AddNewActions.invalidScientificName();
 			this.refs.scientificNameTextField.focus();
+			successFlag = false;
 			return;
 		}
 
@@ -40,39 +43,53 @@ class AddNew extends React.Component {
 		if (!species) {
 			AddNewActions.invalidSpecies();
 			this.refs.speciesTextField.focus();
+			successFlag = false;
 			return;
 		}
 
 		var category = this.state.category.trim();
-		if (!category) {
+		if (!category || category === 'Select..') {
 			AddNewActions.invalidCategory();
 			this.refs.categoryTextField.focus();
+			successFlag = false;
 			return;
 		}
 
 		var lifespan = parseInt(this.state.lifespan);
-		if (!lifespan) {
+		if (!lifespan || lifespan<=0) {
 			AddNewActions.invalidLifespan();
 			this.refs.lifespanTextField.focus();
+			successFlag = false;
 			return;
 		}
 
 		var weight = parseInt(this.state.weight);
-		if (!weight) {
+		if (!weight || weight<=0) {
 			AddNewActions.invalidWeight();
 			this.refs.weightTextField.focus();
+			successFlag = false;
 			return;
 		}
 
 		var height = parseInt(this.state.height);
-		if (!height) {
+		if (!height || height<=0) {
 			AddNewActions.invalidHeight();
 			this.refs.heightTextField.focus();
+			successFlag = false;
 			return;
 		}
 
-		if (true) {
-			AddNewActions.addNewPost(name);
+		if (successFlag) {
+			var addNewModel = {
+				name: name,
+				scientificName: scientificName,
+				species: species,
+				category: category,
+				lifespan: lifespan,
+				weight: weight,
+				height: height,
+			};
+			AddNewActions.addNewPost(addNewModel);
 		}
 	}
 
@@ -80,7 +97,14 @@ class AddNew extends React.Component {
 		return (
 			<div className='container'>
 				<div className='panel panel-default'>
-					<div className='panel-heading'>You are adding a new {this.state.category}</div>
+					<div className='panel-heading'>						
+						<span className='col-md-4'>You are adding a new item</span>
+						<div className={'form-group ' + this.state.addSuccesState} >
+							<span className={'col-md-8 help-block ' + this.state.addSuccesState} >
+								{this.state.addSuccessMessage}
+							</span>							
+						</div>
+					</div>
 					<div className='panel-body'>
 						<form onSubmit={this.handleAddNew.bind(this)}>
 							<div className={'form-group ' + this.state.nameValidationState}>
@@ -128,7 +152,13 @@ class AddNew extends React.Component {
 										<label className='control-label pull-right'>Enter the category</label>
 									</div>
 									<div className='col-md-4'>
-										<input type='text' className='form-control' ref='categoryTextField' value={this.state.category} onChange={AddNewActions.updateCategory} />
+										<select className='form-control' ref='categoryTextField' value={this.state.category} onChange={AddNewActions.updateCategory}>
+											<option>Select..</option>
+											<option>animal</option>
+											<option>bird</option>
+											<option>fish</option>
+											<option>plant</option>
+										</select>
 										<span className='help-block'>{this.state.categoryError}</span>
 									</div>
 									<div className='col-md-4'>
