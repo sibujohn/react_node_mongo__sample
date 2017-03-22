@@ -6,13 +6,14 @@ class NavBar extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+
 	componentDidMount() {
 
 	}
-
 	componentWillUnmount() {
 
 	}
+	
 	render() {
 		return (
 			<nav className='navbar navbar-default navbar-static-top'>

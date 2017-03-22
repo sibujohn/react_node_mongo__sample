@@ -14,11 +14,10 @@ var swig  = require('swig');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Router = require('react-router');
-var routes = require('./app/routes');
+var routes = require('./app/config/routes');
 
 var mongoose = require('mongoose');
-// var userLogin = require('./server/login/loginModel');
-var config = require('./config');
+var config = require('./server/mongoConfig');
 
 var app = express();
 

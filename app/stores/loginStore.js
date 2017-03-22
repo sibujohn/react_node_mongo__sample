@@ -1,4 +1,4 @@
-import  alt from '../alt';
+import  alt from '../config/alt';
 import  LoginActions from '../actions/loginActions';
 
 class LoginStore {

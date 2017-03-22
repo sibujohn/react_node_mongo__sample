@@ -16,23 +16,15 @@ class DashBoard extends React.Component {
 		DashBoardStore.listen(this.onChange);
 		DashBoardActions.getDashBoardList(this.props.params);
 	}
-
 	componentWillUnmount() {
 		DashBoardStore.unlisten(this.onChange);
 	}
-
-	componentDidUpdate(prevProps) {
-		if (!isEqual(prevProps.params, this.props.params)) {
-			DashBoardActions.getDashBoardList(this.props.params);
-		}
+	onChange(state) {
+		this.setState(state);
 	}
 
 	addNew(category){
-		this.props.history.push('main/animals');
-	}
 
-	onChange(state) {
-		this.setState(state);
 	}
 
 	render() {
@@ -53,7 +45,10 @@ class DashBoard extends React.Component {
 									</h4>
 								</div>
 								<div className="add-cover">
-									<span className="add-item" onClick={this.addNew.bind(this, item)}></span>
+									<Link to={'/main/add'}>
+										<span className="add-item">
+										</span>
+									</Link>
 								</div>
 								<small>Description: <strong>{item.description}</strong></small>
 							</div>
