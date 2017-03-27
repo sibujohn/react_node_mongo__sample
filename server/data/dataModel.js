@@ -9,7 +9,7 @@ var dataSchema = new mongoose.Schema({
 	lifespan: Number,
 	weight: Number,
 	height: Number,
-	// img: String
+	img: String
 });
 
 module.exports = mongoose.model('Data', dataSchema);

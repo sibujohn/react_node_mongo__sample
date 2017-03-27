@@ -31,4 +31,28 @@ data.post('/addNewItem', function(req, res, next) {
 		res.send(data);
 	});
 });
+data.get('/getDataList', function(req, res, next) {
+	var category = req.query.category;
+	var conditions = {category: category};
+	dataModel
+		.find(conditions)
+		.exec(function(err, list) {
+			if (err) {
+				console.log(err)
+				return next(err);
+			}
+			var data;
+			if(list){
+				list.forEach(function(item) {
+					item.img = '../images/uploads/'+item.name.toLowerCase()+'.png'
+				});
+				data = {status:1, list: list};
+			}
+			else{
+				data = { status:0, message: 'Could not find'};
+			}
+			res.send(data);
+		});
+});
+
 module.exports = data;
